@@ -1,0 +1,23 @@
+[
+  {
+    "participantId": "1",
+    "name": "Sam R",
+    "riskScore": 85,
+    "reasons": ["Missed 3 sessions", "No reply to messages", "Travel barrier"],
+    "recommendedAction": "Call + travel support"
+  },
+  {
+    "participantId": "2",
+    "name": "Aisha K",
+    "riskScore": 55,
+    "reasons": ["CV not started", "Low confidence noted", "Missed 1 session"],
+    "recommendedAction": "Book 1:1 coaching"
+  },
+  {
+    "participantId": "3",
+    "name": "Jordan P",
+    "riskScore": 20,
+    "reasons": ["On track", "Good attendance", "Progressing well"],
+    "recommendedAction": "Keep on track"
+  }
+]
