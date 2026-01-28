@@ -3,6 +3,7 @@ package com.streetleague.backend.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
@@ -35,5 +36,10 @@ public class DatabricksConfig {
     @Bean
     public JdbcTemplate jdbcTemplate(DataSource databricksDataSource) {
         return new JdbcTemplate(databricksDataSource);
+    }
+
+    @Bean
+    public NamedParameterJdbcTemplate namedParameterJdbcTemplate(DataSource databricksDataSource) {
+        return new NamedParameterJdbcTemplate(databricksDataSource);
     }
 }

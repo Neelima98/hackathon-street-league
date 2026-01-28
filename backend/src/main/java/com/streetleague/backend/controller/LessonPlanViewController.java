@@ -20,7 +20,11 @@ public class LessonPlanViewController {
     }
 
     @GetMapping("/lesson-plans")
-    public List<LessonPlanView> lessonPlans() {
-        return repo.getLessonPlans();
-    }
+    public List<LessonPlanView> search(
+      @RequestParam(required = false) String difficulty_level,
+      @RequestParam(required = false) String skill_name,
+      @RequestParam(required = false) String delivery_method
+  ) {
+    return repo.getLessonPlans(difficulty_level, skill_name, delivery_method);
+  }
 }
