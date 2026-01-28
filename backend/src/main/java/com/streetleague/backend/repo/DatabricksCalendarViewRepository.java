@@ -26,56 +26,86 @@ public class DatabricksCalendarViewRepository {
   }
 
   public List<CalendarView> getCalendarView(int staffId) {
-  String staffTable = "hackathon.emea.staff";  // or make this a @Value too
-  String sql = """
-    SELECT
-      st.staff_id,
-      st.staff_code,
 
-      sess.session_id,
-      sess.cohort_id,
-      sess.lead_staff_id,
-      sess.support_staff_id,
-      sess.start_time,
-      sess.actual_duration_minutes,
-      sess.session_type,
-      sess.session_date,
+    String sql = """
+        SELECT
+          s.staff_id,
+          s.staff_code,
+          s.city_id,
 
-      CASE
-        WHEN sess.lead_staff_id = st.staff_id AND sess.support_staff_id = st.staff_id THEN 'Lead and Support'
-        WHEN sess.lead_staff_id = st.staff_id THEN 'Lead'
-        WHEN sess.support_staff_id = st.staff_id THEN 'Support'
-        ELSE NULL
-      END AS staff_role_in_session
+          ss.session_id,
+          ss.cohort_id,
+          ss.lead_staff_id,
+          ss.support_staff_id,
+          ss.start_time,
+          ss.actual_duration_minutes,
+          ss.session_type,
+          ss.session_date,
+          ss.lesson_plan_id,
 
-    FROM %s st
-    JOIN %s sess
-      ON (sess.lead_staff_id = st.staff_id OR sess.support_staff_id = st.staff_id)
+          lp.lesson_title,
 
-    WHERE st.staff_id = ?
-      AND st.is_active = true
-      AND sess.is_active = true
+          city.city_name,
 
-    ORDER BY sess.session_date, sess.start_time
-  """.formatted(staffTable, sessionTable);
+          c.cohort_code,
+          c.day_of_week,
+          c.session_time,
 
-  return jdbc.query(sql, (rs, rowNum) -> {
-    CalendarView v = new CalendarView();
-    v.staff_id = rs.getInt("staff_id");
-    v.staff_code = rs.getString("staff_code");
+          CASE
+            WHEN ss.lead_staff_id = ss.support_staff_id
+                 AND ss.support_staff_id = s.staff_id
+              THEN 'Lead and Support'
+            WHEN ss.lead_staff_id = s.staff_id
+              THEN 'Lead'
+            WHEN ss.support_staff_id = s.staff_id
+              THEN 'Support'
+            ELSE NULL
+          END AS staff_role_in_session
 
-    v.session_id = rs.getInt("session_id");
-    v.cohort_id = rs.getInt("cohort_id");
-    v.lead_staff_id = rs.getInt("lead_staff_id");
-    v.support_staff_id = rs.getInt("support_staff_id");
-    v.start_time = String.valueOf(rs.getObject("start_time"));
-    v.actual_duration_minutes = rs.getInt("actual_duration_minutes");
-    v.session_type = rs.getString("session_type");
-    v.session_date = String.valueOf(rs.getObject("session_date"));
+        FROM hackathon.emea.staff s
+        JOIN hackathon.emea.session ss
+          ON (s.staff_id = ss.lead_staff_id OR s.staff_id = ss.support_staff_id)
+        JOIN hackathon.emea.lesson_plan lp
+          ON ss.lesson_plan_id = lp.lesson_plan_id
+        JOIN hackathon.emea.city city
+          ON s.city_id = city.city_id
+        JOIN hackathon.emea.cohort c
+          ON ss.cohort_id = c.cohort_id
 
-    v.staff_role_in_session = rs.getString("staff_role_in_session");
-    return v;
-  }, staffId);
+        WHERE s.staff_id = ?
+
+        ORDER BY ss.session_date, ss.start_time
+    """;
+
+    return jdbc.query(sql, (rs, rowNum) -> {
+        CalendarView dto = new CalendarView();
+
+        dto.staff_id = rs.getInt("staff_id");
+        dto.staff_code = rs.getString("staff_code");
+        dto.city_id = rs.getInt("city_id");
+        dto.city_name = rs.getString("city_name");
+
+        dto.session_id = rs.getInt("session_id");
+        dto.cohort_id = rs.getInt("cohort_id");
+        dto.lesson_plan_id = rs.getInt("lesson_plan_id");
+        dto.lead_staff_id = rs.getInt("lead_staff_id");
+        dto.support_staff_id = rs.getInt("support_staff_id");
+        dto.start_time = String.valueOf(rs.getObject("start_time"));
+        dto.actual_duration_minutes = rs.getInt("actual_duration_minutes");
+        dto.session_type = rs.getString("session_type");
+        dto.session_date = String.valueOf(rs.getObject("session_date"));
+
+        dto.lesson_title = rs.getString("lesson_title");
+
+        dto.cohort_code = rs.getString("cohort_code");
+        dto.day_of_week = rs.getString("day_of_week");
+        dto.session_time = rs.getString("session_time");
+
+        dto.staff_role_in_session = rs.getString("staff_role_in_session");
+
+        return dto;
+    }, staffId);
 }
+
 
 }
