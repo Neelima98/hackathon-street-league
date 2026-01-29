@@ -96,7 +96,7 @@ export default function Series() {
         <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent my-4"></div>
         <div className="pt-4 px-4 pb-12 max-w-7xl mx-auto">
           <div className="flex justify-center flex-col items-center">
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-bold p-2 pb-0 text-center">
+            <h1 className="font-heading font-bold text-[28px] text-center">
               {seriesDetails?.name || t("fallbackTitle")}
             </h1>
             {seriesDetails?.description && (

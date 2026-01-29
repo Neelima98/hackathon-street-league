@@ -171,6 +171,23 @@
   z-index: 50;
 }
 
+/* FORCE FullCalendar to wrap text (v6 override) */
+.fc .fc-event-title,
+.fc .fc-event-time,
+.fc .fc-event-main,
+.fc-event-main-frame,
+.fc-daygrid-event .fc-event-title {
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+}
+
+/* Allow event containers to grow vertically */
+.fc-daygrid-event {
+  height: auto !important;
+  line-height: 1.2 !important;
+}
+
 @keyframes confetti-fall {
   0% {
     transform: translateY(-100vh) rotate(0deg);

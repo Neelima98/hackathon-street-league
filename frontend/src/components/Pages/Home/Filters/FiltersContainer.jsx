@@ -14,7 +14,7 @@ export default function FiltersContainer({ filters }) {
 
   const [dropdownState, setDropdownState] = useState(() => {
     const initialState = Object.fromEntries(
-      filters.map(({ key }) => [key, { isOpen: false, selected: null }])
+      filters.map(({ key }) => [key, { isOpen: false, selected: null }]),
     );
 
     // Initialize from activeFilters context
@@ -89,8 +89,8 @@ export default function FiltersContainer({ filters }) {
   function clearFilters() {
     setDropdownState(
       Object.fromEntries(
-        filters.map(({ key }) => [key, { isOpen: false, selected: null }])
-      )
+        filters.map(({ key }) => [key, { isOpen: false, selected: null }]),
+      ),
     );
     setActiveFilters({});
     setOpenKey(null);
@@ -114,7 +114,7 @@ export default function FiltersContainer({ filters }) {
                 ...dropdownState[key],
                 isOpen: openKey === key,
               },
-            ])
+            ]),
           )}
           filters={filters}
           toggleDropdown={toggleDropdown}
@@ -140,7 +140,7 @@ export default function FiltersContainer({ filters }) {
                 ...dropdownState[key],
                 isOpen: openKey === key,
               },
-            ])
+            ]),
           )}
           filters={filters}
           toggleDropdown={toggleDropdown}
