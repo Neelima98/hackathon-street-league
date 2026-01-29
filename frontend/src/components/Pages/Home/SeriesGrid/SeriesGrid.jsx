@@ -127,7 +127,7 @@ const SeriesGrid = React.memo(({ data }) => {
 
         {/* Buttons */}
         <div className="flex gap-4">
-          <button className="px-6 py-2 bg-yellow-500 hover:bg-yellow-600 text-black font-semibold rounded-lg transition">
+          <button className="px-6 py-2 bg-[#302f2c] hover:bg-yellow-600 text-white font-semibold rounded-lg transition">
             Generate Programme
           </button>
           <button className="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold rounded-lg transition">
@@ -235,7 +235,7 @@ const SeriesGrid = React.memo(({ data }) => {
           </div> */}
 
           {/* Submit Button */}
-          <button className="w-full px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-black font-semibold rounded-lg transition">
+          <button className="w-full px-6 py-3 bg-[#302f2c] hover:bg-[#1e5edb] text-white cursor-pointer font-semibold rounded-lg transition">
             Submit for Approval
           </button>
         </div>

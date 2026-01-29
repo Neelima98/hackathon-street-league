@@ -3,6 +3,7 @@ export default function Button({ color, children }) {
     red: "border-button-red text-button-red",
     green: "border-button-green text-button-green",
     yellow: "border-button-yellow text-button-yellow",
+    blue: "bg-[#302f2c] text-white hover:bg-[#1e2230] border-none",
   };
 
   const selectedColor = colorClasses[color] || "";

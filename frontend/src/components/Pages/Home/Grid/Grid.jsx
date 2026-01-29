@@ -39,7 +39,7 @@ const Grid = React.memo(
               <button
                 onClick={fetchNextVideos}
                 disabled={loadingMore}
-                className="mt-4 px-4 py-2 bg-orange-accent text-white rounded text-center cursor-pointer font-fun"
+                className="mt-4 px-4 py-2 bg-[#302f2c] text-white rounded text-center cursor-pointer font-fun hover:bg-[#1e2230]"
               >
                 {loadingMore ? "Loading..." : "Load More"}
               </button>
