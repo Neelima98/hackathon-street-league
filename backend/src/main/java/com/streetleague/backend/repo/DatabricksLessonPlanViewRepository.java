@@ -36,10 +36,77 @@ public class DatabricksLessonPlanViewRepository {
     return Boolean.parseBoolean(o.toString());
   }
 
-  public List<LessonPlanView> search(String difficultyLevel, String skillName, String deliveryMethod) {
+  public List<LessonPlanView> getLessonPlans(String difficultyLevel, String skillName, String deliveryMethod) {
 
     String sql = """ 
-      -- (PASTE THE FIXED SQL FROM SECTION 1 HERE)
+      SELECT
+  lp.lesson_plan_id,
+  lp.lesson_code,
+  lp.lesson_title,
+  lp.theme_id,
+  lp.product_type_id,
+  lp.difficulty_level,
+  lp.delivery_method,
+  lp.duration_minutes,
+  lp.max_participants,
+  lp.requires_equipment,
+
+  ss.cohort_id,
+
+  c.cohort_code,
+  c.day_of_week,
+  c.session_time,
+
+  pt.product_type_name,
+  pt.duration_weeks,
+
+  wt.theme_name,
+  wt.theme_code,
+  wt.category AS theme_category,
+  wt.description AS theme_description,
+
+  bls.skill_id,
+  bls.skill_importance,
+  bls.learning_hours,
+  bls.target_proficiency_level,
+
+  s.skill_name,
+  s.min_proficiency,
+  s.skill_category_id,
+  s.max_proficiency,
+
+  sc.category_name,
+  sc.description AS skill_category_description
+
+FROM hackathon.emea.lesson_plan lp
+JOIN hackathon.emea.session ss
+  ON lp.lesson_plan_id = ss.lesson_plan_id
+JOIN hackathon.emea.cohort c
+  ON ss.cohort_id = c.cohort_id
+JOIN hackathon.emea.product_type pt
+  ON lp.product_type_id = pt.product_type_id
+JOIN hackathon.emea.workshop_theme wt
+  ON wt.theme_id = lp.theme_id
+JOIN hackathon.emea.bridge_lesson_skill bls
+  ON lp.lesson_plan_id = bls.lesson_plan_id
+JOIN hackathon.emea.skill s
+  ON bls.skill_id = s.skill_id
+JOIN hackathon.emea.skill_category sc
+  ON s.skill_category_id = sc.skill_category_id
+
+WHERE lp.is_active = true
+  AND pt.is_active = true
+  AND wt.is_active = true
+  AND bls.is_active = true
+  AND s.is_active = true
+  AND sc.is_active = true
+
+  AND (:difficulty_level IS NULL OR :difficulty_level = '' OR lp.difficulty_level = :difficulty_level)
+  AND (:skill_name IS NULL OR :skill_name = '' OR s.skill_name = :skill_name)
+  AND (:delivery_method IS NULL OR :delivery_method = '' OR lp.delivery_method = :delivery_method)
+
+ORDER BY lp.lesson_plan_id, bls.skill_id;
+
     """;
 
     MapSqlParameterSource p = new MapSqlParameterSource()
