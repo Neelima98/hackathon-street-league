@@ -2,7 +2,7 @@ package com.streetleague.backend.model;
 
 public class LessonPlanView {
 
-   // lesson_plan
+  // lesson_plan
   public Integer lesson_plan_id;
   public String lesson_code;
   public String lesson_title;
@@ -14,17 +14,7 @@ public class LessonPlanView {
   public Integer max_participants;
   public Boolean requires_equipment;
 
-  // session
-  public Integer session_id;
-  public Integer session_cohort_id;
-  public Integer lead_staff_id;
-  public Integer support_staff_id;
-  public String start_time;
-  public Integer actual_duration_minutes;
-  public String session_type;
-  public String session_date;
-
-  // cohort
+  // session/cohort
   public Integer cohort_id;
   public String cohort_code;
   public String day_of_week;
@@ -32,17 +22,15 @@ public class LessonPlanView {
 
   // product_type
   public String product_type_name;
-  public String product_code;
   public Integer duration_weeks;
 
-  // workshop_theme
+  // theme
   public String theme_name;
   public String theme_code;
   public String theme_category;
   public String theme_description;
 
-  // bridge_lesson_skill
-  public Integer bridge_id;
+  // bridge skill
   public Integer skill_id;
   public String skill_importance;
   public Integer learning_hours;
@@ -56,6 +44,5 @@ public class LessonPlanView {
 
   // skill_category
   public String category_name;
-  public String category_code;
   public String skill_category_description;
 }
