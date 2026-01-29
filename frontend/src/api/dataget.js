@@ -7,7 +7,7 @@ const API_BASE_URL = "http://localhost:8080/api";
 export async function fetchOutcomes() {
   try {
     const response = await fetch(
-      `${API_BASE_URL}/participants/outcomes/?participant_id=123&cohort_id=10&outcome_name=Employment`,
+      `${API_BASE_URL}/participants/outcomes?participant_id=123&cohort_id=10&outcome_name=Employment`,
     );
     if (!response.ok) {
       throw new Error(`Failed to fetch outcomes: ${response.status}`);
