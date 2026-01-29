@@ -10,6 +10,7 @@ import TodaysSessions from "../components/Pages/Home/TodaySessions";
 import WeeklySchedule from "../components/Pages/Home/WeeklySessions";
 import PendingTasks from "../components/Pages/Home/PendingTasks.jsx";
 import StaffWorkshops from "../components/Pages/Home/StaffWorkshops.jsx";
+import PreviousLearningPlans from "../components/Pages/Home/previousLearningPlans.jsx";
 
 export default function Home() {
   const { userInfo } = useContext(AuthContext);
@@ -66,6 +67,7 @@ export default function Home() {
                   />
 
                   <StaffWorkshops />
+                  <PreviousLearningPlans />
                 </>
               }
             >
