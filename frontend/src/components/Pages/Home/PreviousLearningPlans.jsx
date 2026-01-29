@@ -1,33 +1,33 @@
-// components/Pages/Home/StaffWorkshops.jsx
+// components/Pages/Home/PreviousLearningPlans.jsx
 
 /**
- * StaffWorkshops
+ * PreviousLearningPlans
  * Props:
- * - items: Array<{ id, title, time?, mode?, status? }>
+ * - items: Array<{ id, title, completedOn?, mode?, status? }>
  * - onItemClick: Function (optional)
  * - loading: boolean (optional)
  */
 
-export default function StaffWorkshops({
+export default function PreviousLearningPlans({
   items = [],
   onItemClick,
   loading = false,
 }) {
-  // Default workshops (your request)
+  // Default previous learning plans
   const defaultItems = [
     {
-      id: "w1",
-      title: "Cooking For Confidence",
-      time: "Tue 10:00",
-      mode: "In‑Person",
-      status: "Planned",
+      id: "lp1",
+      title: "Safeguarding Essentials",
+      completedOn: "Submitted • 12 Dec 2025",
+      mode: "Online",
+      status: "Approved",
     },
     {
-      id: "w2",
-      title: "Youth Mental Health",
-      time: "Thu 14:00",
-      mode: "Online",
-      status: "Planned",
+      id: "lp2",
+      title: "Communication Skills",
+      completedOn: "Submitted • 05 Nov 2025",
+      mode: "In‑Person",
+      status: "Rejected",
     },
   ];
 
@@ -36,15 +36,15 @@ export default function StaffWorkshops({
 
   return (
     <section
-      aria-labelledby="staff-workshops-title"
+      aria-labelledby="previous-learning-title"
       className="mt-6 rounded-xl border border-gray-200 bg-white p-4 shadow-sm"
     >
       <div className="mb-3 flex items-center justify-between">
         <h3
-          id="staff-workshops-title"
+          id="previous-learning-title"
           className="text-lg font-semibold text-gray-900"
         >
-          Staff Workshops
+          Previous Learning Plans
         </h3>
       </div>
 
@@ -66,44 +66,45 @@ export default function StaffWorkshops({
         </ul>
       )}
 
-      {/* Render Workshops */}
+      {/* Render Plans */}
       {!loading && (
         <>
           {!hasItems ? (
             <div className="rounded-lg border border-dashed border-gray-200 p-6 text-center">
               <p className="text-sm text-gray-600">
-                No workshops scheduled. Check back later.
+                No learning plans found.
               </p>
             </div>
           ) : (
             <ul className="space-y-3">
-              {effectiveItems.map((w) => (
+              {effectiveItems.map((lp) => (
                 <li
-                  key={w.id}
+                  key={lp.id}
                   className="flex cursor-pointer items-center justify-between rounded-lg border border-gray-100 p-3 hover:bg-gray-50"
-                  onClick={() => onItemClick?.(w.id)}
+                  onClick={() => onItemClick?.(lp.id)}
                   role={onItemClick ? "button" : undefined}
                 >
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
                       <span className="font-medium text-gray-900">
-                        {w.title}
+                        {lp.title}
                       </span>
-                      {w.mode && (
-                        <span className="rounded bg-purple-50 px-2 py-0.5 text-xs font-medium text-purple-700">
-                          {w.mode}
+
+                      {lp.mode && (
+                        <span className="rounded bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-700">
+                          {lp.mode}
                         </span>
                       )}
                     </div>
 
-                    {(w.time || w.description) && (
+                    {(lp.completedOn || lp.description) && (
                       <div className="mt-1 text-sm text-gray-600">
-                        {w.time ?? w.description}
+                        {lp.completedOn ?? lp.description}
                       </div>
                     )}
                   </div>
 
-                  <WorkshopStatusPill status={w.status} />
+                  <PlanStatusPill status={lp.status} />
                 </li>
               ))}
             </ul>
@@ -114,16 +115,15 @@ export default function StaffWorkshops({
   );
 }
 
-function WorkshopStatusPill({ status }) {
+function PlanStatusPill({ status }) {
   const s = (status || "").toLowerCase();
   const map = {
-    planned: "bg-sky-50 text-sky-700 ring-1 ring-inset ring-sky-200",
-    ongoing: "bg-indigo-50 text-indigo-700 ring-1 ring-inset ring-indigo-200",
-    completed: "bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-200",
-    canceled: "bg-red-50 text-red-700 ring-1 ring-inset ring-red-200",
+    approved: "bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-200",
+    rejected: "bg-red-50 text-red-700 ring-1 ring-inset ring-red-200",
+    archived: "bg-gray-50 text-gray-700 ring-1 ring-inset ring-gray-200",
   };
 
-  const label = status ?? "Planned";
+  const label = status ?? "Not Available";
   const cls =
     map[s] ||
     "bg-gray-100 text-gray-700 ring-1 ring-inset ring-gray-200";
