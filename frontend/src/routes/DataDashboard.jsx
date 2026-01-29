@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { fetchOutcomes, fetchProgress } from "../api/dataget";
 
 // Custom dropdown for the slay, girrrrl!
 function SlayDropdown({ options, value, onChange, label }) {
@@ -48,6 +49,15 @@ function SlayDropdown({ options, value, onChange, label }) {
 }
 
 export default function DataDashboard({ data = {} }) {
+  // TEST BUTTON HANDLERS
+  const handleFetchOutcomes = async () => {
+    const result = await fetchOutcomes();
+    console.log("Outcomes result:", result);
+  };
+  const handleFetchProgress = async () => {
+    const result = await fetchProgress();
+    console.log("Progress result:", result);
+  };
   // Fallbacks for each section
   const engagement = data.engagement || {
     enrolled: 85,
@@ -104,6 +114,21 @@ export default function DataDashboard({ data = {} }) {
 
   return (
     <div className="min-h-screen bg-white p-6 pb-[73px]">
+      {/* TEST BUTTONS - REMOVE IN PRODUCTION */}
+      <div className="flex gap-4 mb-4">
+        <button
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          onClick={handleFetchOutcomes}
+        >
+          Test Fetch Outcomes
+        </button>
+        <button
+          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+          onClick={handleFetchProgress}
+        >
+          Test Fetch Progress
+        </button>
+      </div>
       <h1 className="font-heading font-bold text-[28px] mb-6">
         Impact Dashboard
       </h1>
