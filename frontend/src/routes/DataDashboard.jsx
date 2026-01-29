@@ -22,9 +22,7 @@ function SlayDropdown({ options, value, onChange, label }) {
         onClick={() => setOpen((o) => !o)}
       >
         <span>{value || label}</span>
-        <span
-          className={`ml-2 transition-transform ${open ? "rotate-180" : ""}`}
-        >
+        <span className={`ml-2 transition-transform ${open ? "rotate-180" : ""}`}>
           ▼
         </span>
       </button>
@@ -49,15 +47,34 @@ function SlayDropdown({ options, value, onChange, label }) {
 }
 
 export default function DataDashboard({ data = {} }) {
-  // TEST BUTTON HANDLERS
-  const handleFetchOutcomes = async () => {
-    const result = await fetchOutcomes();
-    console.log("Outcomes result:", result);
-  };
-  const handleFetchProgress = async () => {
-    const result = await fetchProgress();
-    console.log("Progress result:", result);
-  };
+  // Call data fetchers on mount (replaces test buttons)
+  useEffect(() => {
+    let mounted = true;
+
+    async function init() {
+      try {
+        const [outcomesResult, progressResult] = await Promise.all([
+          fetchOutcomes(),
+          fetchProgress(),
+        ]);
+
+        if (!mounted) return;
+
+        // Keep the logging behaviour from the test buttons
+        console.log("Outcomes result:", outcomesResult);
+        console.log("Progress result:", progressResult);
+      } catch (err) {
+        console.error("Error fetching initial dashboard data:", err);
+      }
+    }
+
+    init();
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
   // Fallbacks for each section
   const engagement = data.engagement || {
     enrolled: 85,
@@ -114,24 +131,10 @@ export default function DataDashboard({ data = {} }) {
 
   return (
     <div className="min-h-screen bg-white p-6 pb-[73px]">
-      {/* TEST BUTTONS - REMOVE IN PRODUCTION */}
-      <div className="flex gap-4 mb-4">
-        <button
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-          onClick={handleFetchOutcomes}
-        >
-          Test Fetch Outcomes
-        </button>
-        <button
-          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-          onClick={handleFetchProgress}
-        >
-          Test Fetch Progress
-        </button>
-      </div>
       <h1 className="font-heading font-bold text-[28px] mb-6">
         Impact Dashboard
       </h1>
+
       {/* Filters - now with slay! */}
       <div className="flex flex-wrap gap-2 mb-6">
         <SlayDropdown
@@ -150,6 +153,7 @@ export default function DataDashboard({ data = {} }) {
           Apply Filters
         </button>
       </div>
+
       {/* Top Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         {/* Engagement */}
@@ -186,6 +190,7 @@ export default function DataDashboard({ data = {} }) {
             Avg Engagement <span className="font-bold">{engagement.avg}%</span>
           </div>
         </div>
+
         {/* Development */}
         <div className="bg-yellow-50 rounded-lg p-4 shadow">
           <h2 className="text-lg font-semibold mb-2 flex items-center gap-2">
@@ -200,7 +205,7 @@ export default function DataDashboard({ data = {} }) {
               <span className="font-bold">{development.reading}%</span>
             </div>
             <div className="flex justify-between">
-              <span>Spelling & Grammar</span>
+              <span>Spelling &amp; Grammar</span>
               <span className="font-bold">{development.spelling}%</span>
             </div>
             <div className="flex justify-between">
@@ -217,6 +222,7 @@ export default function DataDashboard({ data = {} }) {
             <span className="font-bold">{development.avg}%</span>
           </div>
         </div>
+
         {/* Outcomes */}
         <div className="bg-green-50 rounded-lg p-4 shadow">
           <h2 className="text-lg font-semibold mb-2 flex items-center gap-2">
@@ -248,12 +254,13 @@ export default function DataDashboard({ data = {} }) {
           </div>
         </div>
       </div>
+
       {/* Lower Section - matches the image exactly! */}
       <div className="w-full flex flex-col md:flex-row gap-4 mt-6">
         {/* Top Barriers & Insights */}
         <div className="flex-1 bg-white rounded-xl border border-gray-200 shadow p-5 flex flex-col min-w-[340px]">
           <h2 className="text-lg font-semibold mb-2">
-            Top Barriers & Insights
+            Top Barriers &amp; Insights
           </h2>
           <div className="flex flex-col md:flex-row gap-2">
             {/* Barriers (left col) */}
@@ -293,6 +300,7 @@ export default function DataDashboard({ data = {} }) {
                 </div>
               </div>
             </div>
+
             {/* Insights (right col) */}
             <div className="flex-1 min-w-[180px]">
               <div className="flex items-center gap-2 mb-2">
@@ -309,6 +317,7 @@ export default function DataDashboard({ data = {} }) {
             </div>
           </div>
         </div>
+
         {/* Workshop Participation */}
         <div className="flex-1 bg-white rounded-xl border border-gray-200 shadow p-5 flex flex-col min-w-[340px]">
           <h2 className="text-lg font-semibold mb-4">Workshop Participation</h2>
