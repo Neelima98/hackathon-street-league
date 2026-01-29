@@ -3,7 +3,6 @@ import HomeHeader from "../components/Reusables/Headers/HomeHeader/HomeHeader";
 import SearchProvider from "../context/SearchContext";
 import MobileHomeHeader from "../components/Reusables/Headers/HomeHeader/MobileHomeHeader";
 import { AuthContext } from "../context/AuthContext.jsx";
-import HeaderSection from "../components/Pages/Home/Header";
 import Layout from "../components/Pages/Home/Layout";
 import NewsAnnouncements from "../components/Pages/Home/NewsCards";
 import { Notes } from "../components/Pages/Home/Notes";
@@ -15,7 +14,6 @@ import StaffWorkshops from "../components/Pages/Home/StaffWorkshops.jsx";
 export default function Home() {
   const { userInfo } = useContext(AuthContext);
   const [showSpinner, setShowSpinner] = useState(true);
-
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -47,7 +45,8 @@ export default function Home() {
                 <>
                   <Notes />
 
-                  <PendingTasks items={[
+                  <PendingTasks
+                    items={[
                       {
                         id: "t1",
                         title: "Sign off Lesson Plan",
@@ -70,14 +69,13 @@ export default function Home() {
                 </>
               }
             >
-            <div className="space-y-4">
-              <NewsAnnouncements />
-              <TodaysSessions />
-              <WeeklySchedule />
-            </div>
+              <div className="space-y-4">
+                <NewsAnnouncements />
+                <TodaysSessions />
+                <WeeklySchedule />
+              </div>
             </Layout>
           </>
-
         )}
       </SearchProvider>
     </div>

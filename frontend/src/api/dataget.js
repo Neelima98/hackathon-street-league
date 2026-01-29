@@ -33,3 +33,17 @@ export async function fetchProgress() {
     return { success: false, error: error.message };
   }
 }
+
+// GET request for /dropdowns endpoint with error validation
+export async function fetchDropdowns() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/dropdowns`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch dropdowns: ${response.status}`);
+    }
+    const data = await response.json();
+    return { success: true, data };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+}

@@ -6,7 +6,9 @@ import { AuthContext } from "../context/AuthContext.jsx";
 import HomeGrid from "../components/Pages/Home/Grid/HomeGrid.jsx";
 import SeriesGrid from "../components/Pages/Home/SeriesGrid/SeriesGrid.jsx";
 import { useTranslation } from "react-i18next";
-import { mockVideos, mockSeries } from "../api/mockData";
+import { mockSeries } from "../api/mockData";
+
+import { fetchDropdowns } from "../api/dataget";
 
 export default function Lessons() {
   const { t } = useTranslation("lessons");
@@ -19,26 +21,34 @@ export default function Lessons() {
   const [totalPages, setTotalPages] = useState(0);
   const [pageSize] = useState(10); // Items per page
 
-  // Dummy filter lists for NewFilters (must have a 'filters' array)
-  const filterLists = {
-    filters: [
-      { key: "level", values: ["Beginner", "Intermediate", "Advanced"] },
-      { key: "accent", values: ["US", "UK", "AU"] },
-      {
-        key: "topic",
-        values: [
-          "Speaking",
-          "Listening",
-          "Pronunciation",
-          "Idioms",
-          "Vocabulary",
-          "Business",
-          "Travel",
-          "Culture",
-        ],
-      },
-    ],
-  };
+  // State for dropdown filter data
+  const [dropdownData, setDropdownData] = useState(null);
+  const [dropdownError, setDropdownError] = useState(null);
+
+  // Map dropdownData to filterLists format for NewFilters
+  const filterLists = dropdownData
+    ? {
+        filters: Object.entries(dropdownData).map(([key, values]) => ({
+          key,
+          values,
+        })),
+      }
+    : { filters: [] };
+
+  // Fetch dropdown data on mount
+  useEffect(() => {
+    const getDropdowns = async () => {
+      const result = await fetchDropdowns();
+      if (result.success) {
+        setDropdownData(result.data);
+        setDropdownError(null);
+      } else {
+        setDropdownError(result.error);
+        setDropdownData(null);
+      }
+    };
+    getDropdowns();
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -54,23 +64,25 @@ export default function Lessons() {
         try {
           setLoading(true);
           const response = await fetch(
-            `http://localhost:8080/api/lesson-plans?page=${currentPage}&limit=${pageSize}`
+            `http://localhost:8080/api/lesson-plans?page=${currentPage}&limit=${pageSize}`,
           );
           if (response.ok) {
             let data = await response.json();
-            
+
             // If API returns all 1000 entries (not paginated), slice them ourselves
             if (Array.isArray(data)) {
               const startIndex = (currentPage - 1) * pageSize;
               const endIndex = startIndex + pageSize;
               const paginatedData = data.slice(startIndex, endIndex);
-              
+
               setLessonPlans(paginatedData);
               setTotalPages(Math.ceil(data.length / pageSize));
             } else if (data.data) {
               // If API already returns paginated data
               setLessonPlans(data.data);
-              setTotalPages(data.totalPages || Math.ceil(data.total / pageSize));
+              setTotalPages(
+                data.totalPages || Math.ceil(data.total / pageSize),
+              );
             }
           }
         } catch (error) {
@@ -127,7 +139,9 @@ export default function Lessons() {
                         : "text-gray-600 hover:text-gray-800 hover:bg-white/50 hover:shadow-md hover:scale-102"
                     }`}
                   >
-                    <span className="relative z-10">📚 {t("Smart Planner")}</span>
+                    <span className="relative z-10">
+                      📚 {t("Smart Planner")}
+                    </span>
                     {activeTab === "series" && (
                       <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500 rounded-full blur-lg opacity-30 animate-pulse"></div>
                     )}
@@ -151,11 +165,13 @@ export default function Lessons() {
                       fetchNextVideos={() => {}}
                       loadingMore={false}
                     />
-                    
+
                     {/* Pagination Controls */}
                     <div className="flex justify-center items-center gap-4 py-8">
                       <button
-                        onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                        onClick={() =>
+                          setCurrentPage((prev) => Math.max(1, prev - 1))
+                        }
                         disabled={currentPage === 1}
                         className="px-4 py-2 bg-gray-300 hover:bg-gray-400 disabled:bg-gray-200 disabled:cursor-not-allowed text-gray-800 font-semibold rounded-lg transition"
                       >
@@ -165,7 +181,11 @@ export default function Lessons() {
                         Page {currentPage} of {totalPages}
                       </span>
                       <button
-                        onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                        onClick={() =>
+                          setCurrentPage((prev) =>
+                            Math.min(totalPages, prev + 1),
+                          )
+                        }
                         disabled={currentPage === totalPages}
                         className="px-4 py-2 bg-orange-500 hover:bg-orange-600 disabled:bg-gray-200 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition"
                       >
@@ -176,7 +196,9 @@ export default function Lessons() {
                 )}
                 {!loading && lessonPlans.length === 0 && (
                   <div className="text-center py-12">
-                    <p className="text-gray-600 text-lg">No lesson plans found</p>
+                    <p className="text-gray-600 text-lg">
+                      No lesson plans found
+                    </p>
                   </div>
                 )}
               </div>
