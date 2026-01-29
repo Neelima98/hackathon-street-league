@@ -6,7 +6,7 @@ export default function NavManager({ isExpanded, setIsExpanded }) {
   const [activeRoute, setActiveRoute] = useState("Home");
   return (
     <>
-      <div className="hidden md:block fixed top-0 left-0 h-screen bg-dark-primary">
+      <div className="hidden md:block fixed top-0 left-0 h-screen bg-[#262E3C]">
         <DesktopNavContainer
           activeRoute={activeRoute}
           setActiveRoute={setActiveRoute}
@@ -14,7 +14,7 @@ export default function NavManager({ isExpanded, setIsExpanded }) {
           setIsExpanded={setIsExpanded}
         />
       </div>
-      <div className="md:hidden w-full z-99 fixed bottom-0 h-[73px] bg-dark-primary rounded-sm">
+      <div className="md:hidden w-full z-99 fixed bottom-0 h-[73px] bg-[#262E3C] rounded-sm">
         <MobileNavContainer
           activeRoute={activeRoute}
           setActiveRoute={setActiveRoute}

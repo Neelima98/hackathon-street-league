@@ -6,7 +6,7 @@ export default function ModalButton({ type, children }) {
   let classes = "";
   if (type === "login" || type === "logout") {
     classes =
-      "bg-orange-accent text-light-primary px-3 py-2 rounded-[12px] cursor-pointer font-fun font-medium text-sm whitespace-nowrap";
+      "bg-[#262E3C] text-light-primary px-3 py-2 rounded-[12px] cursor-pointer font-fun font-medium text-sm whitespace-nowrap";
   } else if (type === "signup") {
     classes =
       "border border-dark-primary text-dark-primary px-3 py-2 rounded-[12px] cursor-pointer font-fun font-medium text-sm whitespace-nowrap";
