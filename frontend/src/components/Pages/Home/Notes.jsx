@@ -68,12 +68,12 @@ export function Notes({
       ) : (
         <>
           <label htmlFor="notes-textarea" className="sr-only">
-            Jot down any important notes
+            Write down any important notes
           </label>
 
           <textarea
             id="notes-textarea"
-            placeholder="Jot down any important notes…"
+            placeholder="Write down any important notes…"
             className="min-h-[120px] w-full resize-y rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 disabled:cursor-not-allowed disabled:bg-gray-50"
             value={text}
             onChange={(e) => setText(e.target.value)}

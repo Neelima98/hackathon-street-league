@@ -28,7 +28,7 @@ export default function PendingTasks({
   return (
     <section
       aria-labelledby="pending-tasks-title"
-      className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm"
+      className="mt-6 rounded-xl border border-gray-200 bg-white p-4 shadow-sm"
     >
       <div className="mb-3 flex items-center justify-between">
         <h3

@@ -83,15 +83,6 @@ export default function HomeHeader() {
             )}
           </div>
         </div>
-
-        {/* Second row of header. */}
-        <div className="flex flex-col px-4 w-full">
-          <div className="flex flex-row gap-4 w-full items-center">
-            <h1 className="text-hero whitespace-nowrap px-0">
-              {t("header.latestVideos")}
-            </h1>
-          </div>
-        </div>
       </div>
     </>
   );

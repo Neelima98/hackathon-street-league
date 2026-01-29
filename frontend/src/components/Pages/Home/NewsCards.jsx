@@ -28,8 +28,8 @@ export function NewsCard({ title, description, img }) {
 export default function NewsAnnouncements() {
   const items = [
     {
-      title: "Thank You West Yorkshire Partners!",
-      description: "Thank you West Yorkshire Partner...",
+      title: "Thank You One Hack After Another!",
+      description: "Jamie wins best presenter again...",
       img: "/highfive.jpg"
     },
     {

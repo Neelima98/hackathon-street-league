@@ -10,7 +10,7 @@ export default function WeeklySchedule() {
     },
     {
       day: "Tue",
-      class: "Employability",
+      class: "Employability Training",
       time: "11:00 – 12:30",
       delivery: "In‑Person",
       status: "Planned",

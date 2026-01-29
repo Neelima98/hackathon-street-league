@@ -27,7 +27,7 @@ export default function MobileHeader() {
           {location.pathname == "/" && (
             <>
               <h1 className="font-fun font-bold text-[28px] whitespace-nowrap">
-                Latest Videos
+                Welcome
               </h1>
 
               <MobileSearchContainer
