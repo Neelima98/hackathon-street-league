@@ -68,26 +68,26 @@ export default function Home() {
                     onClick={() => setActiveTab("videos")}
                     className={`relative px-6 py-3 text-base font-fun font-semibold rounded-full transition-all duration-300 ease-in-out transform cursor-pointer ${
                       activeTab === "videos"
-                        ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg scale-105 -translate-y-0.5"
+                        ? "bg-[#262E3C] text-white shadow-lg scale-105 -translate-y-0.5"
                         : "text-gray-600 hover:text-gray-800 hover:bg-white/50 hover:shadow-md hover:scale-102"
                     }`}
                   >
                     <span className="relative z-10">🎬 {t("tabs.videos")}</span>
                     {activeTab === "videos" && (
-                      <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500 rounded-full blur-lg opacity-30 animate-pulse"></div>
+                      <div className="absolute inset-0 bg-[#262E3C] rounded-full blur-lg opacity-20 animate-pulse"></div>
                     )}
                   </button>
                   <button
                     onClick={() => setActiveTab("series")}
                     className={`relative px-6 py-3 text-base font-fun font-semibold rounded-full transition-all duration-300 ease-in-out transform cursor-pointer ${
                       activeTab === "series"
-                        ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg scale-105 -translate-y-0.5"
+                        ? "bg-[#262E3C] text-white shadow-lg scale-105 -translate-y-0.5"
                         : "text-gray-600 hover:text-gray-800 hover:bg-white/50 hover:shadow-md hover:scale-102"
                     }`}
                   >
                     <span className="relative z-10">📚 {t("tabs.series")}</span>
                     {activeTab === "series" && (
-                      <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500 rounded-full blur-lg opacity-30 animate-pulse"></div>
+                      <div className="absolute inset-0 bg-[#262E3C] rounded-full blur-lg opacity-20 animate-pulse"></div>
                     )}
                   </button>
                 </div>

@@ -22,7 +22,7 @@ export default function Navbar({ collapseHandler, isExpanded }) {
   }
 
   function renderUncollapsedNavItems(items) {
-    return items.map(({ name, translationKey, route, Icon }) => (
+    return items.map(({ name, route, Icon }) => (
       <NavLink key={name} to={route}>
         <div
           className={`nav-link-desktop-uncollapsed transition-all duration-700
@@ -35,7 +35,7 @@ export default function Navbar({ collapseHandler, isExpanded }) {
         >
           {Icon && <Icon active={location.pathname === route} />}
           <span className="ml-4 transition-all duration-700 opacity-100 font-fun whitespace-nowrap">
-            {t(`navigation.${translationKey}`)}
+            {name}
           </span>
         </div>
       </NavLink>

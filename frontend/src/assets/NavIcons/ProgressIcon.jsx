@@ -1,5 +1,5 @@
 export default function ProgressIcon({ active }) {
-  const classes = active ? "stroke-dark-primary" : "stroke-light-primary";
+  const classes = "stroke-light-primary";
   return (
     <div className="group">
       <svg
