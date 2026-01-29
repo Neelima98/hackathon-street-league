@@ -99,8 +99,10 @@ export default function CalendarPage() {
 
   const locale = useMemo(() => i18n.language || "en", [i18n.language]);
 
+  // Always use dayGridMonth view
+
   return (
-    <div className="bg-white">
+    <div className="bg-white pb-[73px]">
       <AltHeader />
       <div className="p-4">
         <h1 className="font-heading font-bold text-[28px]">Calendar</h1>

@@ -5,6 +5,7 @@ import DataDashboard from "./routes/DataDashboard.jsx";
 import SplitScreen from "./components/SplitScreen/SplitScreen.jsx";
 import Error from "./routes/Error.jsx";
 import Series from "./routes/Series.jsx";
+import Lessons from "./routes/Lessons.jsx";
 import Calendar from "./routes/Calendar.jsx";
 
 export default createBrowserRouter([
@@ -13,6 +14,7 @@ export default createBrowserRouter([
     errorElement: Error,
     children: [
       { index: true, Component: Home },
+      { path: "lessons", Component: Lessons },
       { path: "data-dashboard", Component: DataDashboard },
       { path: "post/:id", Component: Post },
       { path: "series/:id", Component: Series },

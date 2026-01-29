@@ -8,9 +8,7 @@ export default function Navbar() {
     return items.map(({ name, route, Icon }) => (
       <NavLink key={name} to={route}>
         <div
-          className={`${
-            location.pathname === route ? "bg-yellow-accent" : ""
-          } nav-link-mobile`}
+          className={`nav-link-mobile${location.pathname === route ? " bg-[#B39B66]" : ""}`}
         >
           {Icon && <Icon active={location.pathname === route} />}
         </div>

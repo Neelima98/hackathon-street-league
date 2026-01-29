@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { fetchOutcomes, fetchProgress } from "../api/dataget";
 
 // Custom dropdown for the slay, girrrrl!
 function SlayDropdown({ options, value, onChange, label }) {
@@ -47,36 +48,45 @@ function SlayDropdown({ options, value, onChange, label }) {
   );
 }
 
-export default function DataDashboard() {
-  // Dummy data for dashboard
-  const engagement = {
+export default function DataDashboard({ data = {} }) {
+  // TEST BUTTON HANDLERS
+  const handleFetchOutcomes = async () => {
+    const result = await fetchOutcomes();
+    console.log("Outcomes result:", result);
+  };
+  const handleFetchProgress = async () => {
+    const result = await fetchProgress();
+    console.log("Progress result:", result);
+  };
+  // Fallbacks for each section
+  const engagement = data.engagement || {
     enrolled: 85,
     attended25: 70,
     attended50: 55,
     completed: 55,
     avg: 68,
   };
-  const development = {
+  const development = data.development || {
     reading: 72,
     spelling: 68,
     spreadsheets: 60,
     cv: 55,
     avg: 64,
   };
-  const outcomes = {
+  const outcomes = data.outcomes || {
     full: 40,
     part: 32,
     education: 20,
     training: 12,
     avg: 35,
   };
-  const barriers = [
+  const barriers = data.barriers || [
     { label: "Financial", value: 29 },
     { label: "Feedback", value: 21 },
     { label: "Housing Instability", value: 18 },
     { label: "Transport Issues", value: 15 },
   ];
-  const workshopParticipation = [
+  const workshopParticipation = data.workshopParticipation || [
     { theme: "English", value: 250 },
     { theme: "Maths", value: 210 },
     { theme: "Computing", value: 190 },
@@ -103,7 +113,22 @@ export default function DataDashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-white p-6">
+    <div className="min-h-screen bg-white p-6 pb-[73px]">
+      {/* TEST BUTTONS - REMOVE IN PRODUCTION */}
+      <div className="flex gap-4 mb-4">
+        <button
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          onClick={handleFetchOutcomes}
+        >
+          Test Fetch Outcomes
+        </button>
+        <button
+          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+          onClick={handleFetchProgress}
+        >
+          Test Fetch Progress
+        </button>
+      </div>
       <h1 className="font-heading font-bold text-[28px] mb-6">
         Impact Dashboard
       </h1>
@@ -243,20 +268,28 @@ export default function DataDashboard() {
               </div>
               <div className="flex flex-col gap-1 text-sm">
                 <div className="flex items-center gap-2">
-                  <span className="font-bold text-lg">29%</span>
-                  <span>Financial</span>
+                  <span className="font-bold text-lg">
+                    {barriers[0]?.value || 29}%
+                  </span>
+                  <span>{barriers[0]?.label || "Financial"}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="font-bold text-lg">21%</span>
-                  <span>Mental Health</span>
+                  <span className="font-bold text-lg">
+                    {barriers[1]?.value || 21}%
+                  </span>
+                  <span>{barriers[1]?.label || "Mental Health"}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="font-bold text-lg">18%</span>
-                  <span>Housing Instability</span>
+                  <span className="font-bold text-lg">
+                    {barriers[2]?.value || 18}%
+                  </span>
+                  <span>{barriers[2]?.label || "Housing Instability"}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="font-bold text-lg">15%</span>
-                  <span>Transport Issues</span>
+                  <span className="font-bold text-lg">
+                    {barriers[3]?.value || 15}%
+                  </span>
+                  <span>{barriers[3]?.label || "Transport Issues"}</span>
                 </div>
               </div>
             </div>
@@ -281,46 +314,27 @@ export default function DataDashboard() {
           <h2 className="text-lg font-semibold mb-4">Workshop Participation</h2>
           <div className="w-full h-48 flex items-end gap-4 px-2">
             {/* Bar chart, hardcoded for now to match image */}
-            <div className="flex flex-col items-center flex-1">
+            {workshopParticipation.map((item, idx) => (
               <div
-                className="w-8 rounded-t bg-blue-300"
-                style={{ height: "160px" }}
-              ></div>
-              <span className="text-xs mt-1 text-center">English</span>
-              <span className="text-xs text-gray-500">250</span>
-            </div>
-            <div className="flex flex-col items-center flex-1">
-              <div
-                className="w-8 rounded-t bg-blue-200"
-                style={{ height: "130px" }}
-              ></div>
-              <span className="text-xs mt-1 text-center">Maths</span>
-              <span className="text-xs text-gray-500">210</span>
-            </div>
-            <div className="flex flex-col items-center flex-1">
-              <div
-                className="w-8 rounded-t bg-blue-200"
-                style={{ height: "120px" }}
-              ></div>
-              <span className="text-xs mt-1 text-center">Computing</span>
-              <span className="text-xs text-gray-500">190</span>
-            </div>
-            <div className="flex flex-col items-center flex-1">
-              <div
-                className="w-8 rounded-t bg-blue-100"
-                style={{ height: "100px" }}
-              ></div>
-              <span className="text-xs mt-1 text-center">Problem Solving</span>
-              <span className="text-xs text-gray-500">160</span>
-            </div>
-            <div className="flex flex-col items-center flex-1">
-              <div
-                className="w-8 rounded-t bg-blue-50"
-                style={{ height: "60px" }}
-              ></div>
-              <span className="text-xs mt-1 text-center">Other</span>
-              <span className="text-xs text-gray-500">100</span>
-            </div>
+                className="flex flex-col items-center flex-1"
+                key={item.theme}
+              >
+                <div
+                  className={`w-8 rounded-t ${
+                    idx === 0
+                      ? "bg-blue-300"
+                      : idx === 1 || idx === 2
+                        ? "bg-blue-200"
+                        : idx === 3
+                          ? "bg-blue-100"
+                          : "bg-blue-50"
+                  }`}
+                  style={{ height: `${160 - idx * 30}px` }}
+                ></div>
+                <span className="text-xs mt-1 text-center">{item.theme}</span>
+                <span className="text-xs text-gray-500">{item.value}</span>
+              </div>
+            ))}
           </div>
           <div className="mt-3 text-center text-sm text-gray-700 font-medium">
             Workshop Themes

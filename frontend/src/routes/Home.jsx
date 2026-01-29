@@ -25,7 +25,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen-bg-white">
+    <div className="min-h-screen-bg-white pb-[73px]">
       <SearchProvider>
         {/* Header is always rendered */}
         <div className="hidden md:block">

@@ -8,7 +8,29 @@ import { ModalContext } from "../../../Reusables/Modal/ModalContext";
 import { AuthContext } from "../../../../context/AuthContext";
 
 const GridItem = memo(({ item }) => {
-  const { id, title, guide, link, level, accent, topics, locked } = item;
+  const {
+    lesson_title,
+    lesson_code,
+    category_name,
+    difficulty_level,
+    delivery_method,
+    theme_name,
+    skill_name,
+    session_date,
+    start_time,
+    duration_minutes,
+    max_participants,
+    locked,
+    // Fallback to old video properties if they exist
+    id,
+    title,
+    guide,
+    link,
+    level,
+    accent,
+    topics,
+  } = item;
+
   const [src, setSrc] = useState("");
   const { openModal } = useContext(ModalContext);
   const { isAuthenticated, userInfo } = useContext(AuthContext);
@@ -16,33 +38,21 @@ const GridItem = memo(({ item }) => {
 
   const navigate = useNavigate();
 
+  // Determine if this is a lesson plan or video
+  const isLessonPlan = !!lesson_title;
+  const displayTitle = lesson_title || title;
+  const displayCategory = category_name || level;
+  const displayTheme = theme_name || accent;
+  const displaySkill = skill_name || (topics && topics.join(", "));
+
   const handleClick = () => {
-    // Always go to dummy post page with dummy data
-    navigate("/post/dummy");
+    // Navigate to lesson/post page
+    navigate(isLessonPlan ? `/post/${lesson_plan_id || 1}` : "/post/dummy");
   };
 
   useEffect(() => {
-    const testImage = new Image();
-    const maxRes = `https://i.ytimg.com/vi/${link}/maxresdefault.jpg`;
-    const fallback = `https://i.ytimg.com/vi/${link}/hqdefault.jpg`;
-
-    testImage.onload = () => {
-      // YouTube's placeholder maxres images are usually very small (like 120x90)
-      if (testImage.naturalWidth <= 120) {
-        setSrc(fallback);
-      } else {
-        setSrc(maxRes);
-      }
-    };
-
-    testImage.onerror = (e) => {
-      // If it truly errors (rare), fallback
-      e.preventDefault();
-      setSrc(fallback);
-    };
-
-    testImage.src = maxRes;
-  }, [link]);
+    setSrc('public/lesson.jpg');
+  }, []);
 
   return (
     <div
@@ -81,18 +91,57 @@ const GridItem = memo(({ item }) => {
           </>
         )}
       </div>
-      <h1 className="font-fun font-bold text-[18px]">{title}</h1>
-      <div className="flex items-center space-x-1">
-        <UserIconSmall className="align-bottom" />
-        <p className="text-secondary font-fun text-sm">
-          {guide || "Unknown Creator"}
-        </p>
-      </div>
-      <div className="space-x-[8px] mt-1">
-        {level && <GridButton color="green">{level}</GridButton>}
-        {accent && <GridButton color="red">{accent}</GridButton>}
-        {topics && <GridButton color="yellow">{topics.join(", ")}</GridButton>}
-      </div>
+      <h1 className="font-fun font-bold text-[18px] line-clamp-2">{displayTitle}</h1>
+      
+      {isLessonPlan ? (
+        <>
+          {/* Lesson Plan Info */}
+          <div className="flex items-center space-x-1 mt-2">
+            <p className="text-secondary font-fun text-xs font-semibold">
+              {lesson_code}
+            </p>
+          </div>
+          <div className="space-x-[8px] mt-2">
+            {difficulty_level && (
+              <GridButton color="green">{difficulty_level}</GridButton>
+            )}
+            {delivery_method && (
+              <GridButton color="blue">{delivery_method}</GridButton>
+            )}
+            {displayTheme && (
+              <GridButton color="purple">{displayTheme}</GridButton>
+            )}
+          </div>
+          <div className="mt-2 text-xs text-gray-600">
+            <p>{session_date && `📅 ${session_date}`}</p>
+            <p>{start_time && `⏰ ${start_time}`}</p>
+            <p>{duration_minutes && `⏱️ ${duration_minutes} mins`}</p>
+            <p>{max_participants && `👥 Max: ${max_participants}`}</p>
+          </div>
+          {skill_name && (
+            <div className="mt-2 px-2 py-1 bg-yellow-100 rounded text-xs font-semibold text-yellow-800">
+              Skill: {skill_name}
+            </div>
+          )}
+        </>
+      ) : (
+        <>
+          {/* Video Info (Legacy) */}
+          <div className="flex items-center space-x-1">
+            <UserIconSmall className="align-bottom" />
+            <p className="text-secondary font-fun text-sm">
+              {guide || "Unknown Creator"}
+            </p>
+          </div>
+          <div className="space-x-[8px] mt-1">
+            {level && <GridButton color="green">{level}</GridButton>}
+            {accent && <GridButton color="red">{accent}</GridButton>}
+            {topics && (
+              <GridButton color="yellow">{topics.join(", ")}</GridButton>
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 });
