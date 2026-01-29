@@ -16,7 +16,7 @@ export function NewsCard({ title, description, img }) {
 
         <button
           type="button"
-          className="mt-4 inline-flex items-center self-start rounded-md bg-orange-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-orange-700 transition-colors"
+          className="mt-4 inline-flex items-center self-start rounded-md bg-[#302f2c] px-3 py-1.5 text-sm font-medium text-white hover:bg-[#1e2230] transition-colors"
         >
           Read More
         </button>

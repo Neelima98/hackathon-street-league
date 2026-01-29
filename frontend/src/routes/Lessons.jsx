@@ -97,7 +97,7 @@ export default function Lessons() {
   }, [activeTab, currentPage, pageSize]);
 
   return (
-    <div>
+    <div className="min-h-screen-bg-white">
       <SearchProvider>
         {/* Header is always rendered */}
         <div className="hidden md:block">
@@ -122,20 +122,20 @@ export default function Lessons() {
                     onClick={() => setActiveTab("videos")}
                     className={`relative px-6 py-3 text-base font-fun font-semibold rounded-full transition-all duration-300 ease-in-out transform cursor-pointer ${
                       activeTab === "videos"
-                        ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg scale-105 -translate-y-0.5"
+                        ? "bg-[#302f2c] text-white shadow-lg scale-105 -translate-y-0.5"
                         : "text-gray-600 hover:text-gray-800 hover:bg-white/50 hover:shadow-md hover:scale-102"
                     }`}
                   >
                     <span className="relative z-10">🎬 {t("Lessons")}</span>
                     {activeTab === "videos" && (
-                      <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500 rounded-full blur-lg opacity-30 animate-pulse"></div>
+                      <div className="absolute inset-0 bg-[#1e2230] rounded-full blur-lg opacity-30 animate-pulse"></div>
                     )}
                   </button>
                   <button
                     onClick={() => setActiveTab("series")}
                     className={`relative px-6 py-3 text-base font-fun font-semibold rounded-full transition-all duration-300 ease-in-out transform cursor-pointer ${
                       activeTab === "series"
-                        ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg scale-105 -translate-y-0.5"
+                        ? "bg-[#302f2c] text-white shadow-lg scale-105 -translate-y-0.5"
                         : "text-gray-600 hover:text-gray-800 hover:bg-white/50 hover:shadow-md hover:scale-102"
                     }`}
                   >
@@ -143,7 +143,7 @@ export default function Lessons() {
                       📚 {t("Smart Planner")}
                     </span>
                     {activeTab === "series" && (
-                      <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500 rounded-full blur-lg opacity-30 animate-pulse"></div>
+                      <div className="absolute inset-0 bg-[#1e2230] rounded-full blur-lg opacity-30 animate-pulse"></div>
                     )}
                   </button>
                 </div>
@@ -187,7 +187,7 @@ export default function Lessons() {
                           )
                         }
                         disabled={currentPage === totalPages}
-                        className="px-4 py-2 bg-orange-500 hover:bg-orange-600 disabled:bg-gray-200 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition"
+                        className="px-4 py-2 bg-[#302f2c] cursor-pointer hover:bg-[#1e5edb] disabled:bg-gray-200 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition"
                       >
                         Next
                       </button>

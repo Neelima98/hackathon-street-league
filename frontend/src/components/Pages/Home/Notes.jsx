@@ -89,7 +89,7 @@ export function Notes({
               type="button"
               onClick={handleSave}
               disabled={disabled || saving}
-              className="inline-flex items-center rounded-md bg-orange-600 px-3 py-1.5 text-sm font-medium text-white shadow-sm hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 disabled:cursor-not-allowed disabled:opacity-60"
+              className="inline-flex items-center rounded-md bg-[#302f2c] px-3 py-1.5 text-sm font-medium text-white shadow-sm hover:bg-[#1e2230] focus:outline-none focus:ring-2 focus:ring-[#302f2c] disabled:cursor-not-allowed disabled:opacity-60"
             >
               {saving ? (
                 <>

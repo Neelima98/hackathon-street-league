@@ -26,7 +26,7 @@ export default function TodaysSessions() {
             </span>
             <button
               type="button"
-              className="inline-flex items-center rounded-md bg-orange-600 px-3 py-1.5 text-sm font-medium text-white shadow-sm hover:bg-orange-700 transition-colors"
+              className="inline-flex items-center rounded-md bg-[#302f2c] px-3 py-1.5 text-sm font-medium text-white shadow-sm hover:bg-orange-700 transition-colors"
             >
               View Learning Material
             </button>
