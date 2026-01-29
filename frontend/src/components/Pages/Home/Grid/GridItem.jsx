@@ -47,7 +47,7 @@ const GridItem = memo(({ item }) => {
 
   const handleClick = () => {
     // Navigate to lesson/post page
-    navigate(isLessonPlan ? `/post/${lesson_plan_id || 1}` : "/post/dummy");
+    navigate("/post/dummy");
   };
 
   useEffect(() => {
