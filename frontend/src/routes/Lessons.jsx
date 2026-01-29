@@ -203,7 +203,7 @@ export default function Lessons() {
                 )}
               </div>
             ) : (
-              <SeriesGrid data={mockSeries} />
+              <SeriesGrid />
             )}
           </>
         )}
