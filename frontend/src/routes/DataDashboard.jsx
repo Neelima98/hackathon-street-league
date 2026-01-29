@@ -47,7 +47,7 @@ function SlayDropdown({ options, value, onChange, label }) {
   );
 }
 
-export default function Progress() {
+export default function DataDashboard() {
   // Dummy data for dashboard
   const engagement = {
     enrolled: 85,
@@ -104,7 +104,9 @@ export default function Progress() {
 
   return (
     <div className="min-h-screen bg-white p-6">
-      <h1 className="text-3xl font-bold mb-6">Impact Dashboard</h1>
+      <h1 className="font-heading font-bold text-[28px] mb-6">
+        Impact Dashboard
+      </h1>
       {/* Filters - now with slay! */}
       <div className="flex flex-wrap gap-2 mb-6">
         <SlayDropdown
@@ -119,7 +121,7 @@ export default function Progress() {
           onChange={setProgramme}
           label="Programme: All Programme Types"
         />
-        <button className="bg-blue-600 text-white px-4 py-2 rounded">
+        <button className="bg-[#262E3C] text-white px-4 py-2 rounded">
           Apply Filters
         </button>
       </div>

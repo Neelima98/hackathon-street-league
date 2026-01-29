@@ -5,7 +5,7 @@ export const AuthContext = createContext();
 export default function AuthProvider({ children }) {
   // Always provide the dummy Street League user info
   const userInfo = {
-    name: "Street League User",
+    name: "Emily",
     email: "streetleague@example.com",
   };
   const isAuthenticated = true;

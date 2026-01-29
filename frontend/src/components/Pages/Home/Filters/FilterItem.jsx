@@ -52,7 +52,7 @@ export default function FilterItem({
         onClick={onToggle}
         className={`filter-button ${widthClass} flex justify-between items-center w-full gap-2 px-4 cursor-pointer font-fun ${
           selected && !isOpen
-            ? "bg-orange-accent text-white"
+            ? "bg-[#262E3C] text-white"
             : "bg-light-primary text-dark-primary"
         }`}
       >

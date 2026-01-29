@@ -53,7 +53,7 @@ const Grid = React.memo(
           )}
       </div>
     );
-  }
+  },
 );
 
 export default Grid;
