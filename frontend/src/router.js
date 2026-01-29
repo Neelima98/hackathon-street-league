@@ -14,8 +14,7 @@ export default createBrowserRouter([
     errorElement: Error,
     children: [
       { index: true, Component: Home },
-      { path: "progress", Component: Progress },
-      { path: "lessons", Component: Lessons},
+      { path: "lessons", Component: Lessons },
       { path: "data-dashboard", Component: DataDashboard },
       { path: "post/:id", Component: Post },
       { path: "series/:id", Component: Series },
