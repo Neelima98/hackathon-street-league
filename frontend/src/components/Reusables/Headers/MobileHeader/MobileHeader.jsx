@@ -1,12 +1,11 @@
 import MobileSearchContainer from "../../Search/MobileSearchContainer";
 import LogoBar from "../../Logo/LogoBar";
-import { useContext, useState } from "react";
 import { useLocation } from "react-router";
-import { AuthContext } from "../../../../context/AuthContext.jsx";
+import { useState } from "react";
+
 export default function MobileHeader() {
   const location = useLocation();
   const [active, setActive] = useState(false);
-  const { isAuthenticated } = useContext(AuthContext);
 
   const searchClickHandler = () => {
     setActive((prev) => !prev);
