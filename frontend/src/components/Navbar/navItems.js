@@ -3,21 +3,21 @@ import ProgressIcon from "../../assets/NavIcons/ProgressIcon.jsx";
 import UserIcon from "../../assets/NavIcons/UserIcon.jsx";
 import SettingsIcon from "../../assets/NavIcons/SettingsIcon.jsx";
 import LessonIcon from "../../assets/NavIcons/LessonIcon.jsx";
+import CalendarIcon from "../../assets/NavIcons/CalendarIcon.jsx";
 
 export const navItems = [
   { name: "Home", translationKey: "home", route: "/", Icon: HomeIcon },
   { name: "Lessons", translationKey: "lessons", route: "/lessons", Icon: LessonIcon },
   {
-    name: "Progress",
+    name: "Data",
     translationKey: "progress",
-    route: "/progress",
+    route: "/data-dashboard",
     Icon: ProgressIcon,
   },
-  { name: "User", translationKey: "user", route: "/user/1", Icon: UserIcon },
   {
-    name: "Settings",
-    translationKey: "settings",
-    route: "/settings",
-    Icon: SettingsIcon,
+    name: "Calendar",
+    translationKey: "calendar",
+    route: "/calendar",
+    Icon: CalendarIcon,
   },
 ];

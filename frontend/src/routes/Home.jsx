@@ -3,37 +3,19 @@ import HomeHeader from "../components/Reusables/Headers/HomeHeader/HomeHeader";
 import SearchProvider from "../context/SearchContext";
 import MobileHomeHeader from "../components/Reusables/Headers/HomeHeader/MobileHomeHeader";
 import { AuthContext } from "../context/AuthContext.jsx";
-import HomeGrid from "../components/Pages/Home/Grid/HomeGrid.jsx";
-import SeriesGrid from "../components/Pages/Home/SeriesGrid/SeriesGrid.jsx";
-import { useTranslation } from "react-i18next";
-import { mockVideos, mockSeries } from "../api/mockData";
+import HeaderSection from "../components/Pages/Home/Header";
+import Layout from "../components/Pages/Home/Layout";
+import NewsAnnouncements from "../components/Pages/Home/NewsCards";
+import { Notes } from "../components/Pages/Home/Notes";
+import TodaysSessions from "../components/Pages/Home/TodaySessions";
+import WeeklySchedule from "../components/Pages/Home/WeeklySessions";
+import PendingTasks from "../components/Pages/Home/PendingTasks.jsx";
+import StaffWorkshops from "../components/Pages/Home/StaffWorkshops.jsx";
 
 export default function Home() {
-  const { t } = useTranslation("home");
   const { userInfo } = useContext(AuthContext);
   const [showSpinner, setShowSpinner] = useState(true);
-  const [activeTab, setActiveTab] = useState("videos");
 
-  // Dummy filter lists for NewFilters (must have a 'filters' array)
-  const filterLists = {
-    filters: [
-      { key: "level", values: ["Beginner", "Intermediate", "Advanced"] },
-      { key: "accent", values: ["US", "UK", "AU"] },
-      {
-        key: "topic",
-        values: [
-          "Speaking",
-          "Listening",
-          "Pronunciation",
-          "Idioms",
-          "Vocabulary",
-          "Business",
-          "Travel",
-          "Culture",
-        ],
-      },
-    ],
-  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -43,7 +25,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen-bg-white">
+    <div className="min-h-screen-bg-white pb-[73px]">
       <SearchProvider>
         {/* Header is always rendered */}
         <div className="hidden md:block">
@@ -60,51 +42,42 @@ export default function Home() {
           </div>
         ) : (
           <>
-            {/* Fun & Sleek Tab Navigation */}
-            <div className="px-4 py-6">
-              <div className="flex items-center justify-start">
-                <div className="relative flex bg-gradient-to-r from-gray-100 to-gray-50 rounded-full p-1.5 shadow-inner border border-gray-200 backdrop-blur-sm">
-                  <button
-                    onClick={() => setActiveTab("videos")}
-                    className={`relative px-6 py-3 text-base font-fun font-semibold rounded-full transition-all duration-300 ease-in-out transform cursor-pointer ${
-                      activeTab === "videos"
-                        ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg scale-105 -translate-y-0.5"
-                        : "text-gray-600 hover:text-gray-800 hover:bg-white/50 hover:shadow-md hover:scale-102"
-                    }`}
-                  >
-                    <span className="relative z-10">🎬 {t("tabs.videos")}</span>
-                    {activeTab === "videos" && (
-                      <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500 rounded-full blur-lg opacity-30 animate-pulse"></div>
-                    )}
-                  </button>
-                  <button
-                    onClick={() => setActiveTab("series")}
-                    className={`relative px-6 py-3 text-base font-fun font-semibold rounded-full transition-all duration-300 ease-in-out transform cursor-pointer ${
-                      activeTab === "series"
-                        ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg scale-105 -translate-y-0.5"
-                        : "text-gray-600 hover:text-gray-800 hover:bg-white/50 hover:shadow-md hover:scale-102"
-                    }`}
-                  >
-                    <span className="relative z-10">📚 {t("tabs.series")}</span>
-                    {activeTab === "series" && (
-                      <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500 rounded-full blur-lg opacity-30 animate-pulse"></div>
-                    )}
-                  </button>
-                </div>
-              </div>
+            <Layout
+              sidebar={
+                <>
+                  <Notes />
+
+                  <PendingTasks items={[
+                      {
+                        id: "t1",
+                        title: "Sign off Lesson Plan",
+                        dueDate: "2026-01-30",
+                        tag: "Admin",
+                        status: "Pending",
+                      },
+                      {
+                        id: "t2",
+                        title: "Submit Session 8 Attendance",
+                        dueDate: "2026-01-29",
+                        tag: "Workshop",
+                        status: "InProgress",
+                      },
+                    ]}
+                    onViewAll={() => console.log("View all tasks")}
+                  />
+
+                  <StaffWorkshops />
+                </>
+              }
+            >
+            <div className="space-y-4">
+              <NewsAnnouncements />
+              <TodaysSessions />
+              <WeeklySchedule />
             </div>
-            {activeTab === "videos" ? (
-              <HomeGrid
-                filterLists={filterLists}
-                data={mockVideos}
-                hasMoreVideos={false}
-                fetchNextVideos={() => {}}
-                loadingMore={false}
-              />
-            ) : (
-              <SeriesGrid data={mockSeries} />
-            )}
+            </Layout>
           </>
+
         )}
       </SearchProvider>
     </div>

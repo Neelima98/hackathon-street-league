@@ -49,7 +49,7 @@ export default function MobileSearch({
           }}
         />
         <div
-          className="absolute w-[30px] h-[30px] rounded-[7px] right-3 top-1/2 -translate-y-1/2 bg-orange-accent flex items-center justify-center cursor-pointer"
+          className="absolute w-[30px] h-[30px] rounded-[7px] right-3 top-1/2 -translate-y-1/2 bg-[#262E3C] flex items-center justify-center cursor-pointer"
           onClick={closeSearchHandler}
         >
           <CloseIcon />

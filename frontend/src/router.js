@@ -1,13 +1,12 @@
 import { createBrowserRouter } from "react-router";
 import Home from "./routes/Home.jsx";
 import Post from "./routes/Post.jsx";
-import Progress from "./routes/Progress.jsx";
+import DataDashboard from "./routes/DataDashboard.jsx";
 import SplitScreen from "./components/SplitScreen/SplitScreen.jsx";
-import User from "./routes/User.jsx";
-import Settings from "./routes/Settings.jsx";
 import Error from "./routes/Error.jsx";
 import Series from "./routes/Series.jsx";
 import Lessons from "./routes/Lessons.jsx";
+import Calendar from "./routes/Calendar.jsx";
 
 export default createBrowserRouter([
   {
@@ -17,9 +16,12 @@ export default createBrowserRouter([
       { index: true, Component: Home },
       { path: "progress", Component: Progress },
       { path: "lessons", Component: Lessons},
+      { path: "data-dashboard", Component: DataDashboard },
       { path: "post/:id", Component: Post },
-      { path: "user/:id", Component: User },
-      { path: "settings", Component: Settings },
+      { path: "series/:id", Component: Series },
+      { path: "*", Component: Error },
+      { path: "calendar", Component: Calendar },
+      { path: "post/:id", Component: Post },
       { path: "series/:id", Component: Series },
       { path: "*", Component: Error },
     ],
