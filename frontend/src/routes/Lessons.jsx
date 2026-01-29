@@ -64,7 +64,7 @@ export default function Lessons() {
         try {
           setLoading(true);
           const response = await fetch(
-            `http://localhost:8080/api/lesson-plans?page=${currentPage}&limit=${pageSize}`,
+            `http://localhost:8080/api/lesson-plans/summary?page=${currentPage}&limit=${pageSize}`,
           );
           if (response.ok) {
             let data = await response.json();
