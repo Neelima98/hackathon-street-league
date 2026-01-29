@@ -59,7 +59,7 @@ export default function MobileHomeHeader() {
       </div>
       <div className="flex  justify-between items-center pr-4">
         <h1 className="text-page-title whitespace-nowrap px-4">
-          {t("header.latestVideos")}
+          {t("header.welcome")}
         </h1>
         {!active && <MobileSearchInactive clickHandler={searchClickHandler} />}
       </div>
