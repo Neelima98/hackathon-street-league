@@ -7,6 +7,7 @@ import User from "./routes/User.jsx";
 import Settings from "./routes/Settings.jsx";
 import Error from "./routes/Error.jsx";
 import Series from "./routes/Series.jsx";
+import Lessons from "./routes/Lessons.jsx";
 
 export default createBrowserRouter([
   {
@@ -15,6 +16,7 @@ export default createBrowserRouter([
     children: [
       { index: true, Component: Home },
       { path: "progress", Component: Progress },
+      { path: "lessons", Component: Lessons},
       { path: "post/:id", Component: Post },
       { path: "user/:id", Component: User },
       { path: "settings", Component: Settings },
