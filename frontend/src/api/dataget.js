@@ -22,7 +22,7 @@ export async function fetchOutcomes() {
 export async function fetchProgress() {
   try {
     const response = await fetch(
-      `${API_BASE_URL}/progress/participant_id=123&cohort_id=10&lesson_title=Intro%20Session`,
+      `${API_BASE_URL}/participants/progress?cohort_id=323`,
     );
     if (!response.ok) {
       throw new Error(`Failed to fetch progress: ${response.status}`);
