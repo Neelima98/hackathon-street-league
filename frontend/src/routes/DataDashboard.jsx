@@ -104,7 +104,9 @@ export default function DataDashboard() {
 
   return (
     <div className="min-h-screen bg-white p-6">
-      <h1 className="text-3xl font-bold mb-6">Impact Dashboard</h1>
+      <h1 className="font-heading font-bold text-[28px] mb-6">
+        Impact Dashboard
+      </h1>
       {/* Filters - now with slay! */}
       <div className="flex flex-wrap gap-2 mb-6">
         <SlayDropdown

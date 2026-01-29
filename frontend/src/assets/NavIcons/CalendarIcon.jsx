@@ -1,14 +1,9 @@
 export default function CalendarIcon({ active }) {
-  const classes = active ? "stroke-dark-primary" : "stroke-light-primary";
+  const classes = "stroke-light-primary";
 
   return (
     <div className="group">
-      <svg
-        width="30"
-        height="30"
-        viewBox="0 0 24 24"
-        fill="none"
-      >
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
         <rect
           x="3"
           y="4"
