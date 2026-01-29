@@ -13,7 +13,8 @@
     "user": "User",
     "settings": "Settings",
     "about": "About",
-    "logout": "Logout"
+    "logout": "Logout",
+    "lessons": "Lessons"
   },
   "user": {
     "premiumMember": "Premium Member"

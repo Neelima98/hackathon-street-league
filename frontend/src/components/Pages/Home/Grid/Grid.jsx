@@ -14,6 +14,7 @@ const Grid = React.memo(
         ? searchResults
         : data;
 
+    console.log(gridData)
     return (
       <div>
         {searchResults.length === 0 &&
@@ -48,7 +49,7 @@ const Grid = React.memo(
           !Object.keys(activeFilters).length &&
           !hasMoreVideos && (
             <p className="my-4 pb-10 text-center text-gray-500 font-fun">
-              No more videos
+              {/* No more videos */}
             </p>
           )}
       </div>
